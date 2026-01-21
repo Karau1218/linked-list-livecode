@@ -1,16 +1,17 @@
-public class MyLL {
-    private class Node {
-    private char value; 
-    public Node next;
+
+public class MyLL<T> {
+    private class Node<E> {
+    private E value; 
+    public Node<E> next;
     
 
-    public Node(char value, Node next) {
+    public Node(E value, Node<E> next) {
         this.value = value;
         this.next = next;
     }
     
 }
-private Node head;
+private Node<T> head;
 
 public MyLL() {
     head = null;
@@ -25,12 +26,26 @@ public void printList() {
         }
         
     }
+     public void addToBack(T toAdd) {
+        Node<T>  newNode = new Node<T> (toAdd, null); // NUll is what to add is pointing to 
+        
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+    
+        Node<T>  current = head;
+        while (current.next != null) {
+            current = current.next;
+        }
+        current.next = newNode;
+     }
 
         // System.out.println(head.next.next.value);
-    public boolean contains(char toFind) {
-      Node current = head;
+    public boolean contains(T toFind) {
+      Node<T> current = head;
         while (current != null) {
-            if (current.value == toFind) {
+            if (current.value.equals(toFind)) {
                 return true;
             }
 
@@ -40,25 +55,25 @@ public void printList() {
         return false; 
     }
     // Removes the first node that has toRemove
-    public char remove(char toRemove) {
+    public T remove(T toRemove) {
         if(head == null) {
-            return '\0';
+            return null;
         }
         if (head.value == toRemove) {
             head = head.next;
             return toRemove;
         }
         
-        Node current = head;
+        Node<T> current = head;
 
         while (current.next != null) {
-            if (current.value == toRemove) {
+            if (current.value.equals(toRemove)) {
                 current.next = current.next.next;
                 return toRemove;
             }
             current = current.next;
         }
-            return '\0';
+            return null;
     }
     
     } 
